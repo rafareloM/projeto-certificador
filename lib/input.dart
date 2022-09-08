@@ -13,28 +13,47 @@ class Input {
   static String getUserInput(String message) {
     String? userInput;
     stdout.write(message);
-    do {
-      userInput = stdin.readLineSync();
-      if (userInput == '') {
-        stdout.write('Entrada invalida.\n');
-        userInput = getUserInput(message);
-      }
-    } while (userInput == null);
+    userInput = stdin.readLineSync();
+    if (userInput == null || userInput == '') {
+      stdout.write('Entrada invalida!\n');
+      userInput = getUserInput(message);
+    }
     return userInput;
   }
 
   static int getUserInputToInt(String message) {
     String? userInput;
-    int? input;
+    late int input;
     userInput = (getUserInput(message));
-    do {
-      try {
-        input = int.parse(userInput!);
-      } catch (e) {
-        stdout.write('Número invalido.\n');
-        userInput = getUserInput(message);
-      }
-    } while (input == null);
+    try {
+      input = int.parse(userInput);
+    } catch (e) {
+      stdout.write('Número invalido!\n');
+      input = getUserInputToInt(message);
+    }
     return input;
+  }
+
+  static String getUserInputToIntPossibleZero(String message) {
+    late String userInput;
+    int input;
+    userInput = (getUserInput(message));
+    if (userInput.split('').first == '0') {
+      try {
+        input = int.parse(userInput);
+        userInput = '0$input';
+      } catch (e) {
+        stdout.write('Número invalido!\n');
+        userInput = getUserInputToIntPossibleZero(message);
+      }
+    } else {
+      try {
+        input = int.parse(userInput);
+      } catch (e) {
+        stdout.write('Número invalido!\n');
+        userInput = getUserInputToIntPossibleZero(message);
+      }
+    }
+    return userInput;
   }
 }

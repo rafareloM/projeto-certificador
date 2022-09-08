@@ -9,22 +9,24 @@ class Endereco {
   late String _bairro;
   late String _estado;
   late String _cep;
-  String formatCep(int cep) {
+  String formatCep(String cep) {
     String parsedCep = cep.toString();
-    return '${parsedCep.substring(0, 2)}-${parsedCep.substring(5)}';
+    return '${parsedCep.substring(0, 2)}-${parsedCep.substring(2)}';
   }
 
-  String validaCep() {
-    int cep = Input.getUserInputToInt('Informe o CEP: ');
+  String validaCep(String message) {
+    String cep = Input.getUserInputToIntPossibleZero(
+        'Informe o CEP $message(Apenas números): ');
     while (cep.toString().length != 8) {
-      stdout.write('CEP inválido\n');
-      cep = Input.getUserInputToInt('Informe o CEP: ');
+      stdout.write('CEP inválido!\n');
+      cep = Input.getUserInputToIntPossibleZero(
+          'Informe o CEP (Apenas números): ');
     }
     return formatCep(cep);
   }
 
-  void setLogradouro() {
-    _logradouro = Input.getUserInput('Informe o Logradouro: ');
+  void setLogradouro(String message) {
+    _logradouro = Input.getUserInput('Informe o Logradouro $message: ');
   }
 
   get logradouro {
@@ -32,7 +34,7 @@ class Endereco {
   }
 
   void setNumero() {
-    _numero = Input.getUserInputToInt('Informe o número: ');
+    _numero = Input.getUserInputToInt('Informe o número do Logradouro: ');
   }
 
   get numero {
@@ -40,44 +42,44 @@ class Endereco {
   }
 
   void setComplemento() {
-    _complemento = Input.getUserInput('Informe o complemento: ');
+    _complemento = Input.getUserInput('Informe o complemento : ');
   }
 
   get complemento {
     return _complemento;
   }
 
-  void setBairro() {
-    _bairro = Input.getUserInput('Informe o bairro: ');
+  void setBairro(String message) {
+    _bairro = Input.getUserInput('Informe o bairro $message: ');
   }
 
   get bairro {
     return _bairro;
   }
 
-  void setEstado() {
-    _estado = Input.getUserInput('Informe o estado(ex.: PE): ');
+  void setEstado(String message) {
+    _estado = Input.getUserInput('Informe o estado $message(ex.: PE): ');
   }
 
   get estado {
     return _estado;
   }
 
-  void setCep() {
-    _cep = validaCep();
+  void setCep(String message) {
+    _cep = validaCep(message);
   }
 
   get cep {
     return _cep;
   }
 
-  setEndereco() {
-    setLogradouro();
+  setEndereco(String message) {
+    setLogradouro(message);
     setNumero();
     setComplemento();
-    setBairro();
-    setEstado();
-    setCep();
+    setBairro(message);
+    setEstado(message);
+    setCep(message);
   }
 
   String getEndereco() {

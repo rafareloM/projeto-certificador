@@ -1,12 +1,13 @@
-import 'dart:io';
-
 import 'package:projeto_certificador/empresa.dart';
-import 'package:projeto_certificador/endereco.dart';
 import 'package:projeto_certificador/input.dart';
 import 'package:projeto_certificador/pessoa_fisica.dart';
-import 'package:projeto_certificador/pessoa_juridica.dart';
 import 'package:projeto_certificador/socio.dart';
+import 'package:projeto_certificador/template.dart';
 
 void main() {
-  Socio pessoaFisica = PessoaFisica();
+  Empresa empresa = Empresa();
+  List<Empresa> list = [empresa];
+
+  empresa.setCnpj();
+  print(Empresa.pesquisaPorCnpj(list).first.getEmpresa());
 }
