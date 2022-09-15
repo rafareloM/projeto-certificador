@@ -3,13 +3,15 @@ import 'package:projeto_certificador/endereco.dart';
 
 abstract class Socio {
   @protected
-  late Endereco endereco = Endereco();
+  final Endereco pEndereco;
   @protected
-  late String nome;
+  final String pNome;
   @protected
-  late String documento;
-  setNome() {}
-  setDocumento() {}
-  setSocio() {}
+  final String pDocumento;
+  String get documento => pDocumento;
+  String get nome => pNome;
+  Endereco get endereco => pEndereco;
+  Socio(this.pEndereco, this.pNome, this.pDocumento);
+
   getSocio() {}
 }

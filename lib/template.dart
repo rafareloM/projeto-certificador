@@ -1,10 +1,8 @@
 import 'dart:io';
 
 import 'package:projeto_certificador/empresa.dart';
-import 'package:projeto_certificador/input.dart';
-import 'package:projeto_certificador/pessoa_fisica.dart';
-import 'package:projeto_certificador/pessoa_juridica.dart';
-import 'package:projeto_certificador/socio.dart';
+import 'package:projeto_certificador/endereco.dart';
+import 'package:projeto_certificador/helper.dart';
 
 void template() {
   List<Empresa> empresasList = [];
@@ -18,28 +16,44 @@ void template() {
         '4.Listar Empresas cadastradas em ordem alfabética (baseado na Razão Social);\n');
     stdout.write('5.Excluir uma empresa (por ID);\n');
     stdout.write('6.Sair\n');
-    int option = Input.getUserInputToInt('Selecione uma opção: ');
+    stdout.write('==========================================\n');
+    String option = Helper.getUserInputNumbers('Selecione uma opção: ');
     switch (option) {
-      case 1:
-        Empresa empresa = Empresa();
-        empresa.setEmpresa();
+      case '1':
+        Empresa empresa = Empresa(
+            Endereco(
+                Helper.getUserInput('Informe o Logradouro: '),
+                Helper.getUserInputNumbers('Informe o número: '),
+                Helper.getUserInput('Informe o complemento: '),
+                Helper.formatCep(Helper.validateNumber(
+                    'Informe o CEP(Apenas números): ', 8)),
+                Helper.getUserInput('Informe o bairro: '),
+                Helper.getUserInput('Informe o estado: ')),
+            Helper.getUserInput('Informe o nome fantasia da Empresa: '),
+            Helper.formatCpf(
+                Helper.validateNumber('Infome o CNPJ da Empresa: ', 14)),
+            Helper.getUserInput('Informe a razão social da Empresa: '),
+            Helper.formatTelefone(Helper.validateNumber(
+                'Informe o Número de Telefone(Apenas números): ', 11)),
+            Helper.criarSocio());
         empresasList.add(empresa);
         break;
-      case 2:
-        print(Empresa.pesquisaPorCnpj(empresasList).first.getEmpresa());
+      case '2':
+        print(Helper.pesquisaPorCnpj(empresasList));
         break;
-      case 3:
-        print(Empresa.pesquisaPorDocumento(empresasList).first.getEmpresa());
+      case '3':
+        print(
+            Helper.getEmpresa(Helper.pesquisaPorDocumento(empresasList).first));
         break;
-      case 4:
-        empresasList.sort((a, b) => a.razaoSocial.compareTo(b.razaoSocial));
+      case '4':
+        empresasList.sort((a, b) => (a.razaoSocial.compareTo(b.razaoSocial)));
         print(empresasList);
         break;
-      case 5:
-        String id = Input.getUserInput('Infome o ID da Empresa');
+      case '5':
+        String id = Helper.getUserInput('Infome o ID da Empresa');
         empresasList.removeWhere((element) => element.id == id);
         break;
-      case 6:
+      case '6':
         stdout.write('Encerrando...');
         condition = false;
         break;
