@@ -62,21 +62,40 @@ class Helper {
     return number;
   }
 
-  static Iterable<Empresa> pesquisaPorDocumento(List<Empresa> list) {
-    late Iterable<Empresa> empresaSelecionada;
+  static void ordenaRazaoSocial(List<Empresa> list) {
+    list.sort((a, b) => (a.nomeFantasia
+        .toLowerCase()
+        .split(' ')
+        .first
+        .compareTo(b.nomeFantasia.toLowerCase().split(' ').first)));
+  }
+
+  static void printaEmpresas(List<Empresa> list) {
+    list.forEach((element) => print(getEmpresa(element)));
+  }
+
+  static String pesquisaPorDocumento(List<Empresa> list) {
+    final Empresa empresaSelecionada;
+    String message = '';
     String documento =
         Helper.getUserInputNumbers('Insira o número de CPF/CNPJ do sócio: ');
-    if (documento.toString().length == 11) {
-      empresaSelecionada =
-          list.where((e) => e.socio.documento == Helper.formatCpf(documento));
-    } else if (documento.toString().length == 14) {
-      empresaSelecionada =
-          list.where((e) => e.socio.documento == Helper.formatCnpj(documento));
-    } else {
+    try {
+      if (documento.toString().length == 11) {
+        empresaSelecionada = list
+            .where((e) => e.socio.documento == Helper.formatCpf(documento))
+            .single;
+        message = getEmpresa(empresaSelecionada);
+      } else if (documento.toString().length == 14) {
+        empresaSelecionada = list
+            .where((e) => e.socio.documento == Helper.formatCnpj(documento))
+            .single;
+        message = getEmpresa(empresaSelecionada);
+      }
+    } catch (e) {
       stdout.write('CPF/CNPJ Inválido\n');
-      empresaSelecionada = pesquisaPorDocumento(list);
+      message = pesquisaPorDocumento(list);
     }
-    return empresaSelecionada;
+    return message;
   }
 
   static String formatCep(String cep) {

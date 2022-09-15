@@ -42,12 +42,11 @@ void template() {
         print(Helper.pesquisaPorCnpj(empresasList));
         break;
       case '3':
-        print(
-            Helper.getEmpresa(Helper.pesquisaPorDocumento(empresasList).first));
+        print(Helper.pesquisaPorDocumento(empresasList));
         break;
       case '4':
-        empresasList.sort((a, b) => (a.razaoSocial.compareTo(b.razaoSocial)));
-        print(empresasList);
+        Helper.ordenaRazaoSocial(empresasList);
+        empresasList.forEach((element) => print(Helper.getEmpresa(element)));
         break;
       case '5':
         String id = Helper.getUserInput('Infome o ID da Empresa');
