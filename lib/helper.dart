@@ -19,10 +19,9 @@ class Helper {
 
   static String getUserInputNumbers(String message) {
     late String userInput;
-    // ignore: unused_local_variable
-    int inputInt;
     userInput = (getUserInput(message));
     try {
+      int inputInt;
       inputInt = int.parse(userInput);
     } catch (e) {
       stdout.write('Número inválido!\n');
