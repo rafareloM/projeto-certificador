@@ -1,4 +1,5 @@
 import 'package:projeto_certificador/endereco.dart';
+import 'package:projeto_certificador/helpers/format.dart';
 import 'package:projeto_certificador/pessoa_juridica.dart';
 import 'package:projeto_certificador/socio.dart';
 import 'package:uuid/uuid.dart';
@@ -22,7 +23,7 @@ class Empresa extends PessoaJuridica {
   get telefone => _telefone;
 
   static String getEmpresa(Empresa empresa) =>
-      'ID: ${empresa.id}\nCNPJ:  ${empresa.cnpj} Data Cadastro: ${empresa.dataCriacao}\nRazão Social: ${empresa.razaoSocial}\n Nome Fantasia: ${empresa.nomeFantasia}\nTelefone: ${empresa.telefone}\n${Endereco.getEndereco(empresa.endereco)}\n${empresa.socio.getSocio()}';
+      'ID: ${empresa.id}\nCNPJ:  ${Format.formatCnpj(empresa.cnpj)} Data Cadastro: ${empresa.dataCriacao}\nRazão Social: ${empresa.razaoSocial}\nNome Fantasia: ${empresa.nomeFantasia}\nTelefone: ${Format.formatTelefone(empresa.telefone)}\n${Endereco.getEndereco(empresa.endereco)}\n${empresa.socio.getSocio()}\n=======================================\n';
 
   Empresa(super.endereco, super.pNomeFantasia, super.pCnpj, super.pRazaoSocial,
       this._telefone, this._socio);

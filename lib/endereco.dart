@@ -1,3 +1,5 @@
+import 'package:projeto_certificador/helpers/format.dart';
+
 class Endereco {
   final String _logradouro;
   final String _numero;
@@ -31,7 +33,7 @@ class Endereco {
   }
 
   static String getEndereco(Endereco endereco) =>
-      'Endereço: ${endereco.logradouro}, ${endereco.numero}, ${endereco.complemento}, ${endereco.bairro}/${endereco.estado}, ${endereco.cep}';
+      'Endereço: ${endereco.logradouro}, ${endereco.numero}, ${endereco.complemento}, ${endereco.bairro}/${endereco.estado}, ${Format.formatCep(endereco.cep)}';
 
   Endereco(
     this._logradouro,
