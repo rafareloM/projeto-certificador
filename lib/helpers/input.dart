@@ -11,4 +11,18 @@ abstract class Input {
     }
     return userInput;
   }
+
+  static String getUserInputNumbers(String message) {
+    late String userInput;
+    // ignore: unused_local_variable
+    int inputInt;
+    userInput = (Input.getUserInput(message));
+    try {
+      inputInt = int.parse(userInput);
+    } catch (e) {
+      stdout.write('Número inválido!\n');
+      userInput = getUserInputNumbers(message);
+    }
+    return userInput;
+  }
 }
