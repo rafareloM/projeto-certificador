@@ -43,18 +43,14 @@ class Helper {
     String message = '';
     String documento =
         Input.getUserInputNumbers('Insira o número de CPF/CNPJ do sócio: ');
-    if (documento.toString().length == 11) {
+    if (list.any((element) => element.socio.documento == documento)) {
       empresaSelecionada =
-          list.where((e) => e.socio.documento == documento).single;
-      return message = Empresa.getEmpresa(empresaSelecionada);
-    }
-    if (documento.toString().length == 14) {
-      empresaSelecionada =
-          list.where((e) => e.socio.documento == documento).single;
+          list.where((e) => e.socio.documento == documento).first;
       return message = Empresa.getEmpresa(empresaSelecionada);
     }
     stdout.write('CPF/CNPJ Inválido\n');
-    message = pesquisaPorDocumento(list);
+    String continuar = Input.getUserInput('Gostaria de tentar novamente?(S/N)');
+    if (continuar == 's') message = pesquisaPorDocumento(list);
     return message;
   }
 
@@ -133,7 +129,7 @@ class Helper {
     list.add(empresa);
     String continuar =
         Input.getUserInput('Gostaria de registrar outra empresa?(S/N)');
-    if (continuar == 's') {
+    if (continuar.toLowerCase() == 's') {
       criarEmpresas(list);
     }
   }
