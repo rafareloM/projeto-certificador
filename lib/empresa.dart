@@ -1,3 +1,4 @@
+import 'package:projeto_certificador/endereco.dart';
 import 'package:projeto_certificador/pessoa_juridica.dart';
 import 'package:projeto_certificador/socio.dart';
 import 'package:uuid/uuid.dart';
@@ -19,6 +20,9 @@ class Empresa extends PessoaJuridica {
   Socio get socio => _socio;
 
   get telefone => _telefone;
+
+  static String getEmpresa(Empresa empresa) =>
+      'ID: ${empresa.id}\nCNPJ:  ${empresa.cnpj} Data Cadastro: ${empresa.dataCriacao}\nRazão Social: ${empresa.razaoSocial}\n Nome Fantasia: ${empresa.nomeFantasia}\nTelefone: ${empresa.telefone}\n${Endereco.getEndereco(empresa.endereco)}\n${empresa.socio.getSocio()}';
 
   Empresa(super.endereco, super.pNomeFantasia, super.pCnpj, super.pRazaoSocial,
       this._telefone, this._socio);

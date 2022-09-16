@@ -1,5 +1,4 @@
 import 'package:projeto_certificador/endereco.dart';
-import 'package:projeto_certificador/helper.dart';
 import 'package:projeto_certificador/socio.dart';
 
 class PessoaFisica extends Socio {
@@ -9,6 +8,6 @@ class PessoaFisica extends Socio {
       : super(endereco, nomeCompleto, _cpf);
   @override
   String getSocio() {
-    return 'Sócio:\nCPF: $documento\nNome Completo: $nome\n${Helper.getEndereco(endereco)}';
+    return 'Sócio:\nCPF: $documento\nNome Completo: $nome\n${Endereco.getEndereco(endereco)}';
   }
 }

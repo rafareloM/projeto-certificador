@@ -30,6 +30,9 @@ class Endereco {
     return _cep;
   }
 
+  static String getEndereco(Endereco endereco) =>
+      'Endereço: ${endereco.logradouro}, ${endereco.numero}, ${endereco.complemento}, ${endereco.bairro}/${endereco.estado}, ${endereco.cep}';
+
   Endereco(
     this._logradouro,
     this._numero,

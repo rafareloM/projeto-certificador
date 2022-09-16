@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:projeto_certificador/empresa.dart';
 import 'package:projeto_certificador/endereco.dart';
 import 'package:projeto_certificador/helper.dart';
+import 'package:projeto_certificador/helpers/format.dart';
+import 'package:projeto_certificador/helpers/input.dart';
 
 void template() {
   List<Empresa> empresasList = [];
@@ -17,23 +19,23 @@ void template() {
     stdout.write('5.Excluir uma empresa (por ID);\n');
     stdout.write('6.Sair\n');
     stdout.write('==========================================\n');
-    String option = Helper.getUserInputNumbers('Selecione uma opção: ');
+    String option = Input.getUserInputNumbers('Selecione uma opção: ');
     switch (option) {
       case '1':
         Empresa empresa = Empresa(
             Endereco(
-                Helper.getUserInput('Informe o Logradouro: '),
-                Helper.getUserInputNumbers('Informe o número: '),
-                Helper.getUserInput('Informe o complemento: '),
-                Helper.formatCep(Helper.validateNumber(
+                Input.getUserInput('Informe o Logradouro: '),
+                Input.getUserInputNumbers('Informe o número: '),
+                Input.getUserInput('Informe o complemento: '),
+                Format.formatCep(Helper.validateNumber(
                     'Informe o CEP(Apenas números): ', 8)),
-                Helper.getUserInput('Informe o bairro: '),
-                Helper.getUserInput('Informe o estado: ')),
-            Helper.getUserInput('Informe o nome fantasia da Empresa: '),
-            Helper.formatCpf(
+                Input.getUserInput('Informe o bairro: '),
+                Input.getUserInput('Informe o estado: ')),
+            Input.getUserInput('Informe o nome fantasia da Empresa: '),
+            Format.formatCpf(
                 Helper.validateNumber('Infome o CNPJ da Empresa: ', 14)),
-            Helper.getUserInput('Informe a razão social da Empresa: '),
-            Helper.formatTelefone(Helper.validateNumber(
+            Input.getUserInput('Informe a razão social da Empresa: '),
+            Format.formatTelefone(Helper.validateNumber(
                 'Informe o Número de Telefone(Apenas números): ', 11)),
             Helper.criarSocio());
         empresasList.add(empresa);
@@ -46,10 +48,10 @@ void template() {
         break;
       case '4':
         Helper.ordenaRazaoSocial(empresasList);
-        empresasList.forEach((element) => print(Helper.getEmpresa(element)));
+        empresasList.forEach((element) => print(Empresa.getEmpresa(element)));
         break;
       case '5':
-        String id = Helper.getUserInput('Infome o ID da Empresa');
+        String id = Input.getUserInput('Infome o ID da Empresa');
         empresasList.removeWhere((element) => element.id == id);
         break;
       case '6':
